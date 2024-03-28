@@ -1,7 +1,7 @@
 #include <sstream>
 #include "ConnectX/IOController.hpp"
 #include "QueryReferee.hpp"
-#include "QueryBoard.hpp";
+#include "QueryBoard.hpp"
 
 int PrintTester(int argc, char** const argv) {
   std::stringstream input("print\n0");

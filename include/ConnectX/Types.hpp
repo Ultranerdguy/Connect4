@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "Macros.hpp"
+#include "Vector/Vector.hpp"
 
 namespace ConnectX {
   // Foward declerations

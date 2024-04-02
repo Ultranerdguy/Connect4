@@ -20,7 +20,7 @@ std::istream& operator>>(std::istream& input, ConnectX::Vector& vector) {
       }
       break;
     }
-    vector.push_back(value);
+    vector.Append(value);
 
     // Skip commas
     start = input.tellg();
@@ -33,14 +33,14 @@ std::istream& operator>>(std::istream& input, ConnectX::Vector& vector) {
       break;
     }
   }
-  if (vector.empty()) {
+  if (vector.IsEmpty()) {
     input.setstate(std::ios_base::failbit);
   }
   return input;
 }
 
 std::ostream& operator<<(std::ostream& output, ConnectX::Vector const& vector) {
-  std::size_t const size = vector.size();
+  std::size_t const size = vector.Size();
   for (std::size_t i = 0; i < size; ++i) {
     output << vector[i];
     if ((i+1) != size) output << ", ";

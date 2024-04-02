@@ -14,10 +14,7 @@ namespace ConnectX {
   using VectorComponent = std::int64_t; // A position in one dimension of the board
 
   // An N dimensional position vector
-  class Vector : public std::vector<VectorComponent> {
-  public:
-    using std::vector<VectorComponent>::vector;
-  };
+  using Vector = VectorExpression::Vector<VectorComponent>;
 
   using Token = std::uint64_t;
   // A buffer for tokens

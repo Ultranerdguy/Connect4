@@ -14,9 +14,12 @@ namespace ConnectX::VectorExpression {
   template <typename T>
   class Vector : public VecEx<Vector<T>> {
   public:
+    using TStorage = std::vector<T>;
+    using TIterator = typename TStorage::iterator;
+    using TCIterator = typename TStorage::const_iterator;
     // Constructors
-    template <typename U>
-    Vector(std::initializer_list<U> const& list)
+    Vector() = default;
+    Vector(std::initializer_list<T> const& list)
       : m_data(list)
     {
     }
@@ -28,6 +31,10 @@ namespace ConnectX::VectorExpression {
       for (std::size_t i = 0; i < size; ++i) {
         m_data[i] = v[i];
       }
+    }
+    Vector(std::size_t const size, T const& init) 
+      : m_data(size, init)
+    {
     }
 
     // VecEx template interface
@@ -46,16 +53,41 @@ namespace ConnectX::VectorExpression {
     }
 
     // iterator interface
-    auto begin() {
+    TIterator begin() {
       return m_data.begin();
     }
 
-    auto end() {
+    TCIterator begin() const {
+      return m_data.begin();
+    }
+
+    TCIterator cbegin() const {
+      return m_data.cbegin();
+    }
+
+    TIterator end() {
       return m_data.end();
     }
 
+    TCIterator end() const {
+      return m_data.end();
+    }
+    
+    TCIterator cend() const {
+      return m_data.cend();
+    }
+
+    // Convenience interface
+    bool IsEmpty() const {
+      return m_data.empty();
+    }
+
+    void Append(T const& t) {
+      m_data.push_back(t);
+    }
+
   private:
-    std::vector<T> m_data;
+    TStorage m_data;
   };
 }
 

@@ -8,7 +8,7 @@
 namespace {
   namespace Helper {
     ConnectX::Token GetAt(ConnectX::TokenBuffer const& buffer, ConnectX::Vector const& offsets, ConnectX::Vector const& indexes) {
-      std::size_t const size = offsets.size();
+      std::size_t const size = offsets.Size();
       std::size_t offsetTotal = 0;
       for (std::size_t i = 0; i < size; ++i) {
         offsetTotal += offsets[i] * indexes[i];
@@ -18,7 +18,7 @@ namespace {
 
     void PrintRange(std::ostream& output, ConnectX::TokenBuffer const& buffer, ConnectX::Vector const& sizes) {
       // Handle lower dimensions simply
-      std::size_t const sizeLength = sizes.size();
+      std::size_t const sizeLength = sizes.Size();
       if (sizeLength == 0) return;
       if (sizeLength == 1) {
         for (auto& token : buffer) {
@@ -208,7 +208,7 @@ void ConnectX::IOController::RunPrint(IBoard const& board) const {
   // Calculate sizes across the dimensions of the board
   // Start and End are both in the board, so account for off-by-one
   auto sizes = std::move(end);
-  std::size_t size = start.size();
+  std::size_t size = start.Size();
   for (std::size_t i = 0; i < size; ++i) {
     sizes[i] -= start[i];
     ++sizes[i];
@@ -231,7 +231,7 @@ void ConnectX::IOController::RunGet(ConnectX::IReferee const& referee, ConnectX:
 
 void ConnectX::IOController::RunGetAt(IBoard const& board) const {
   ConnectX::Vector position;
-  if (!(m_input >> position) || position.empty()) {
+  if (!(m_input >> position) || position.IsEmpty()) {
     throw std::ios_base::failure("IOController.cpp - ConnectX::IOController::RunGetAt - Failed to read ConnectX::Vector");
   }
   m_output << board.GetAt(position) << '\n';
@@ -242,7 +242,7 @@ void ConnectX::IOController::RunGetToken(IBoard const& board) const {
 }
 
 void ConnectX::IOController::RunGetDimensions(ConnectX::IBoard const& board) const {
-  m_output << board.GetStart().size() << '\n';
+  m_output << board.GetStart().Size() << '\n';
 }
 
 void ConnectX::IOController::RunGetStart(ConnectX::IBoard const& board) const {
@@ -256,17 +256,17 @@ void ConnectX::IOController::RunGetEnd(ConnectX::IBoard const& board) const {
 void ConnectX::IOController::RunGetRange(ConnectX::IBoard const& board) const {
   ConnectX::Vector start;
   ConnectX::Vector end;
-  if (!(m_input >> start >> end) || start.empty() || end.empty() || start.size() != end.size()) {
+  if (!(m_input >> start >> end) || start.IsEmpty() || end.IsEmpty() || start.Size() != end.Size()) {
     throw std::ios_base::failure("IOController.cpp - ConnectX::IOController::RunGetRange - Failed to read ConnectX::Vector");
   }
   // Clip start and end
   auto const boardStart = board.GetStart();
   auto const boardEnd = board.GetEnd();
-  if (boardStart.size() != start.size() || boardEnd.size() != end.size()) {
+  if (boardStart.Size() != start.Size() || boardEnd.Size() != end.Size()) {
     throw std::range_error("IOController.cpp - ConnectX::IOController::RunGetRange - Wrong input dimensions");
   }
 
-  std::size_t const size = start.size();
+  std::size_t const size = start.Size();
   for (std::size_t i = 0; i < size; ++i) {
     start[i] = std::max(start[i], boardStart[i]);
   }

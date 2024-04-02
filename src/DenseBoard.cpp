@@ -2,12 +2,7 @@
 
 namespace {
   ConnectX::Vector GetSizes(ConnectX::Vector const& start, ConnectX::Vector const& end) {
-    std::size_t const size = start.size();
-    ConnectX::Vector sizes(size, 0);
-    for (std::size_t i = 0; i < size; ++i) {
-      sizes[i] = end[i] - start[i] + 1;
-    }
-    return sizes;
+    return end-start+1;
   }
   
   std::size_t FullSize(ConnectX::Vector const& start, ConnectX::Vector const& end) {
@@ -20,7 +15,7 @@ namespace {
   }
 
   ConnectX::Vector GetOffsets(ConnectX::Vector const& sizes) {
-    std::size_t const size = sizes.size();
+    std::size_t const size = sizes.Size();
     ConnectX::Vector offsets(size, 1);
     for (std::size_t i = 1; i < size; ++i) {
       offsets[size-i-1] = offsets[size-i] * sizes[size-i];
@@ -33,7 +28,7 @@ namespace {
     ConnectX::Vector const offsets = GetOffsets(sizes);
 
     std::size_t output = 0;
-    std::size_t const size = sizes.size();
+    std::size_t const size = sizes.Size();
     for (std::size_t i = 0; i < size; ++i) {
       output += offsets[i] * (position[i] - start[i]);
     }
@@ -68,7 +63,7 @@ void ConnectX::DenseBoard::SetAt(Vector const& position, Token const token) {
 ConnectX::TokenBuffer ConnectX::DenseBoard::GetRange(Vector const& start, Vector const& end) const {
   ConnectX::Vector position = start;
   ConnectX::Vector rangeSize = GetSizes(start, end);
-  std::size_t const size = position.size();
+  std::size_t const size = position.Size();
   ConnectX::TokenBuffer output;
   if (size == 0) return output;
 

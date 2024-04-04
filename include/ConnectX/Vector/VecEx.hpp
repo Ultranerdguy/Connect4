@@ -16,7 +16,6 @@ namespace ConnectX::VectorExpression {
     auto operator[](std::size_t index) const {
       return static_cast<T const&>(*this).operator[](index);
     }
-
   };
 }
 

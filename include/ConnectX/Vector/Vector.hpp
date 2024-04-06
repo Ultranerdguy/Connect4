@@ -4,11 +4,15 @@
 #include <vector>
 #include <initializer_list>
 #include "VecEx.hpp"
+#include "VecScalar.hpp"
 #include "VecSum.hpp"
-#include "VecEqual.hpp"
 #include "VecMul.hpp"
 #include "VecDiv.hpp"
-#include "VecScalar.hpp"
+#include "VecEqual.hpp"
+#include "VecLess.hpp"
+#include "VecLessEq.hpp"
+#include "VecGreater.hpp"
+#include "VecGreaterEq.hpp"
 
 namespace ConnectX::VectorExpression {
   template <typename T>

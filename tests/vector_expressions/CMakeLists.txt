@@ -1,5 +1,6 @@
 set(testTargets 
   VecExEqualTester.cpp
+  VecExInequalTester.cpp
   VecExNotTester.cpp
   VecExNotEqualTester.cpp
   VecExSumTester.cpp

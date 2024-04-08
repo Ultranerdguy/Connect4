@@ -13,6 +13,8 @@
 #include "VecLessEq.hpp"
 #include "VecGreater.hpp"
 #include "VecGreaterEq.hpp"
+#include "VecMin.hpp"
+#include "VecMax.hpp"
 
 namespace ConnectX::VectorExpression {
   template <typename T>

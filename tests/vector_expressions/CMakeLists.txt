@@ -10,6 +10,7 @@ set(testTargets
   VecExDivTester.cpp
   VecExScalarTester.cpp
   VecExChainedOperationTester.cpp
+  VecExMinMaxTester.cpp
 )
 
 set(testSources

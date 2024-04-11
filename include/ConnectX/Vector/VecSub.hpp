@@ -1,5 +1,5 @@
-#ifndef _CONNECT_X_VECTOR_VESUM_HPP_
-#define _CONNECT_X_VECTOR_VESUM_HPP_
+#ifndef _CONNECT_X_VECTOR_VESUB_HPP_
+#define _CONNECT_X_VECTOR_VESUB_HPP_
 
 #include "VecEx.hpp"
 #include "VecNegate.hpp"
@@ -8,12 +8,12 @@
 namespace ConnectX::VectorExpression {
   // Employ CRTP to upcast at compile time
   template <typename U, typename V>
-  class VecSum : public VecEx<VecSum<U,V>> {
+  class VecSub : public VecEx<VecSub<U,V>> {
   public:
     using TU = std::conditional_t<U::Leaf, U const&, U>;
     using TV = std::conditional_t<V::Leaf, V const&, V>;
 
-    VecSum(VecEx<U> const& u, VecEx<V> const& v)
+    VecSub(VecEx<U> const& u, VecEx<V> const& v)
       : m_u(static_cast<U const&>(u))
       , m_v(static_cast<V const&>(v))
     {
@@ -32,7 +32,7 @@ namespace ConnectX::VectorExpression {
     }
 
     auto operator[](std::size_t index) const {
-      return m_u[index] + m_v[index];
+      return m_u[index] - m_v[index];
     }
 
   private:
@@ -42,20 +42,20 @@ namespace ConnectX::VectorExpression {
 }
 
 template <typename U, typename V>
-auto operator+(ConnectX::VectorExpression::VecEx<U> const& lhs, ConnectX::VectorExpression::VecEx<V> const& rhs) {
-  return ConnectX::VectorExpression::VecSum<U,V>(lhs, rhs);
+auto operator-(ConnectX::VectorExpression::VecEx<U> const& lhs, ConnectX::VectorExpression::VecEx<V> const& rhs) {
+  return ConnectX::VectorExpression::VecSub<U,V>(lhs, rhs);
 }
 
 template <ConnectX::VectorExpression::Concept::Scalar U, typename V>
-auto operator+(U const& lhs, ConnectX::VectorExpression::VecEx<V> const& rhs) {
+auto operator-(U const& lhs, ConnectX::VectorExpression::VecEx<V> const& rhs) {
   using Scalar = ConnectX::VectorExpression::VecScalar<U>;
-  return Scalar(lhs) + rhs;
+  return Scalar(lhs) - rhs;
 }
 
 template <typename U, ConnectX::VectorExpression::Concept::Scalar V>
-auto operator+(ConnectX::VectorExpression::VecEx<U> const& lhs, V const& rhs) {
+auto operator-(ConnectX::VectorExpression::VecEx<U> const& lhs, V const& rhs) {
   using Scalar = ConnectX::VectorExpression::VecScalar<V>;
-  return lhs + Scalar(rhs);
+  return lhs - Scalar(rhs);
 }
 
-#endif // #ifndef _CONNECT_X_VECTOR_VESUM_HPP_
+#endif // #ifndef _CONNECT_X_VECTOR_VESUB_HPP_

@@ -6,6 +6,7 @@
 #include "VecEx.hpp"
 #include "VecScalar.hpp"
 #include "VecSum.hpp"
+#include "VecSub.hpp"
 #include "VecMul.hpp"
 #include "VecDiv.hpp"
 #include "VecEqual.hpp"

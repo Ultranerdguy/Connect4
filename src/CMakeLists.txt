@@ -1,5 +1,6 @@
 add_library(connectX_lib
   Types.cpp
+  Utils.cpp
   BoardProxy.cpp
   ControllerProxy.cpp 
   RefereeProxy.cpp

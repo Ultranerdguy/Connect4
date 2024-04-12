@@ -1,41 +1,5 @@
 #include "ConnectX/DenseBoard.hpp"
-
-namespace {
-  ConnectX::Vector GetSizes(ConnectX::Vector const& start, ConnectX::Vector const& end) {
-    return end-start+1;
-  }
-  
-  std::size_t FullSize(ConnectX::Vector const& start, ConnectX::Vector const& end) {
-    auto const sizes = GetSizes(start, end);
-    std::size_t output = 1;
-    for (auto& s : sizes) {
-      output *= s;
-    }
-    return output;
-  }
-
-  ConnectX::Vector GetOffsets(ConnectX::Vector const& sizes) {
-    std::size_t const size = sizes.Size();
-    ConnectX::Vector offsets(size, 1);
-    for (std::size_t i = 1; i < size; ++i) {
-      offsets[size-i-1] = offsets[size-i] * sizes[size-i];
-    }
-    return offsets;
-  }
-
-  std::size_t GetIndex(ConnectX::Vector const& position, ConnectX::Vector const& start, ConnectX::Vector const& end) {
-    ConnectX::Vector const sizes = GetSizes(start, end);
-    ConnectX::Vector const offsets = GetOffsets(sizes);
-
-    std::size_t output = 0;
-    std::size_t const size = sizes.Size();
-    for (std::size_t i = 0; i < size; ++i) {
-      output += offsets[i] * (position[i] - start[i]);
-    }
-
-    return output;
-  }
-}
+#include "ConnectX/Utils.hpp"
 
 ConnectX::DenseBoard::DenseBoard(ConnectX::Vector const& start, ConnectX::Vector const& end)
   : m_start{start}
